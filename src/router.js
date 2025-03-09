@@ -1,4 +1,5 @@
 import { isSameOrigin } from "./utils.js";
+import homePage from "./pages/home.js";
 
 export const navigate = (url, data) => {
   history.pushState(data, null, url);
@@ -24,9 +25,7 @@ export const renderPage = () => {
 
 export const getPage = (route) => {
   const routes = {
-    "/": () => {
-      return `<h1>Home page</h1>`;
-    },
+    "/": homePage,
   };
 
   return routes[route]();
