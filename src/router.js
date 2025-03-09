@@ -1,5 +1,6 @@
 import { isSameOrigin } from "./utils.js";
 import homePage from "./pages/home.js";
+import notepadPage from "./pages/notepad.js";
 
 export const navigate = (url, data) => {
   history.pushState(data, null, url);
@@ -26,6 +27,7 @@ export const renderPage = () => {
 export const getPage = (route) => {
   const routes = {
     "/": homePage,
+    "/notepad": notepadPage,
   };
 
   return routes[route]();
