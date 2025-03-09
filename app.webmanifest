@@ -1,0 +1,11 @@
+{
+  "short_name": "dots",
+  "name": "Dots: take a quick note",
+  "id": "/?source=dots",
+  "start_url": "/?source=dots",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000",
+  "description": "Simple and yet robust tool to take a note"
+}
