@@ -10,10 +10,8 @@ const registerServiceWorker = () => {
   }
 };
 
+// Bootstrap application
 document.addEventListener("DOMContentLoaded", () => {
-  // intialize routing
   initRouter();
-
-  // register service worker
   registerServiceWorker();
 });
