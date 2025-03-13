@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Plus Jakarta Sans Normal";
+  font-weight: normal;
+  font-style: normal;
+  src: url("/assets/webfonts/plus-jakarta-sans-latin-400-normal.woff2") format("woff2"),
+    url("/assets/webfonts/plus-jakarta-sans-latin-400-normal.woff") format("woff"),
+  ;
+
+}
+
+.font-plus-jakarta-sans-normal {
+  font-family: "Plus Jakarta Sans Normal", sans-serif;
+}
