@@ -1,3 +1,7 @@
+import Router from "../../router.js";
+import NoteStorage from "../../storage.js";
+import { parse } from "../../utils.js";
+
 export default class Notepad extends HTMLElement {
   static name = "markdown-editor";
 
@@ -8,51 +12,65 @@ export default class Notepad extends HTMLElement {
   connectedCallback() {
     this.render();
     this.registerShortcut();
+    this.registerEvents();
   }
 
-  registerShortcut(){
+  registerShortcut() {
     document.addEventListener("keydown", (event) => {
-      if(event.ctrlKey && event.key === "s"){
-        console.log("Ctrl + s triggered")
+      if (event.ctrlKey && event.key === "s") {
+        console.log("Ctrl + s triggered");
+
         const content = this.querySelector(".notepad").innerHTML;
-        console.log(content)
+
+        const note = {
+          id: Date.now() + Math.random(),
+          title: "Untitled",
+          content: content,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+
+        NoteStorage.append(note);
+        Router.navigate("/notepad", note);
+
         event.preventDefault();
       }
-    })
+    });
+  }
+
+  registerEvents() {
+    const notepad = this.querySelector(".notepad");
   }
 
   render() {
     const styles = this.getStyles();
     const template = this.getTemplate();
-
     this.innerHTML = `${styles} ${template}`;
   }
 
-  getStyles(){
+  getStyles() {
     return `
     <style>
     .notepad {
       margin: auto;
-      padding: 2rem;
       width: 100%;
-      max-width: 980px;
-
+      max-width: 66ch;
+      padding-top: 4rem;
+      box-sizing: border-box;
       line-height: 1.5;
     }
-
-    h1 {
-      font-weight: bold;
-      font-size: 4rem;
-    }
     </style>
-    `
-  }
-
-  getTemplate(){
-    return `
-    <div class="notepad" contentEditable>
-      <h1 class="">lorem ipsum </h1>
-    </div>
     `;
   }
+
+  getTemplate() {
+    return `
+    <div 
+      class="notepad" 
+      id="notepad"
+      contentEditable
+    ></div>
+    `;
+  }
+
 }

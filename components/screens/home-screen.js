@@ -21,6 +21,20 @@ export default class HomeScreen extends HTMLElement {
   getStyles() {
     return `
     <style>
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    file-tree{
+      flex: 1;
+      max-width: 250px;
+    }
+
+    markdown-editor {
+      flex: 1;
+    }
+
     </style>
     `;
   }

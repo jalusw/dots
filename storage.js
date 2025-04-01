@@ -1,6 +1,6 @@
 const NOTES_STORAGE_PATH = "notes";
 
-class NoteStorage {
+export default class NoteStorage {
   static getNotes() {
     return JSON.parse(localStorage.getItem(NOTES_STORAGE_PATH)) || [];
   }

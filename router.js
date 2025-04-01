@@ -1,17 +1,19 @@
 import { isSameOrigin } from "./utils.js";
 
 export default class Router {
-  static #routes =  {
+  static #routes = {
     "/": "<home-screen></home-screen>",
     "/notepad": "<notepad-screen></notepad-screen>",
-  }
+  };
 
-  static get routes(){
+  static get routes() {
     return Router.#routes;
   }
 
-  static setupRouter(){
+  static setupRouter() {
     document.addEventListener("click", (e) => {
+      if (e.target.download) return;
+
       if (e.target.tagName === "A" && isSameOrigin(e.target.href)) {
         e.preventDefault();
         navigate(e.target.href);
@@ -26,13 +28,12 @@ export default class Router {
   static navigate(url, data) {
     history.pushState(data, null, url);
   }
-  
-  static render(){
+
+  static render() {
     const app = document.getElementById("app");
     const path = window.location.pathname;
     const content = Router.routes[path];
 
     app.innerHTML = content;
-  };
+  }
 }
-
