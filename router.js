@@ -1,39 +1,38 @@
 import { isSameOrigin } from "./utils.js";
-import homePage from "./pages/home.js";
-import notepadPage from "./pages/notepad.js";
 
-export const navigate = (url, data) => {
-  history.pushState(data, null, url);
-};
+export default class Router {
+  static #routes =  {
+    "/": "<home-screen></home-screen>",
+    "/notepad": "<notepad-screen></notepad-screen>",
+  }
 
-export const initRouter = () => {
-  document.addEventListener("click", (e) => {
-    if (e.target.tagName === "A" && isSameOrigin(e.target.href)) {
-      e.preventDefault();
-      navigate(e.target.href);
-    }
-  });
-  window.addEventListener("popstate", () => {
-    renderPage();
-  });
-  renderPage();
-};
+  static get routes(){
+    return Router.#routes;
+  }
 
-export const renderPage = () => {
-  const path = window.location.pathname;
-  render(getPage(path));
-};
+  static setupRouter(){
+    document.addEventListener("click", (e) => {
+      if (e.target.tagName === "A" && isSameOrigin(e.target.href)) {
+        e.preventDefault();
+        navigate(e.target.href);
+      }
+    });
 
-export const getPage = (route) => {
-  const routes = {
-    "/": homePage,
-    "/notepad": notepadPage,
+    window.addEventListener("popstate", Router.render);
+
+    Router.render();
+  }
+
+  static navigate(url, data) {
+    history.pushState(data, null, url);
+  }
+  
+  static render(){
+    const app = document.getElementById("app");
+    const path = window.location.pathname;
+    const content = Router.routes[path];
+
+    app.innerHTML = content;
   };
+}
 
-  return routes[route]();
-};
-
-export const render = (content) => {
-  const app = document.getElementById("app");
-  app.innerHTML = content;
-};

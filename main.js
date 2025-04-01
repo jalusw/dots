@@ -1,17 +1,32 @@
-import { initRouter } from "./router.js";
+import Router from "./router.js";
 
-const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/src/service-worker.js")
-      .catch((error) => {
+import HomeScreen from "./components/screens/home-screen.js";
+import MarkdownEditor from "./components/ui/markdown-editor.js"
+
+class App{
+  static init(){
+    document.addEventListener("DOMContentLoaded", App.bootstrap);
+  }
+
+  static bootstrap(){
+    Router.setupRouter();
+    App.registerServiceWorker();
+    App.registerComponents();
+  }
+  
+  static registerComponents(){
+    customElements.define(HomeScreen.name, HomeScreen);
+    customElements.define(MarkdownEditor.name, MarkdownEditor);
+  }
+
+  static registerServiceWorker(){
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch((error) => {
         console.error("Service Worker Registration Failed", error);
       });
+    }
   }
-};
+}
 
-// Bootstrap application
-document.addEventListener("DOMContentLoaded", () => {
-  initRouter();
-  registerServiceWorker();
-});
+
+App.init();

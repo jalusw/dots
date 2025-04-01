@@ -139,6 +139,10 @@ table {
 
 :root {
   font-size: 62.5%;
+
+  --font-sans: "Plus Jakarta Sans Normal", sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
 }
 
 body {
